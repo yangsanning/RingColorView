@@ -19,7 +19,7 @@
         android:id="@+id/main_activity_color_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray">
+        android:background="#5C5C5C">
 
         <ImageView
             android:id="@+id/main_activity_angle"

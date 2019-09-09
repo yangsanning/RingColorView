@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
@@ -47,6 +48,7 @@ public class RingColorView extends View implements IPaintView {
     private Paint ringPaint;
     private RectF ringRectF;
     private float ringRadius;
+    private int ringColor = 0xFFff0000;
 
     private Paint circlePaint;
 
@@ -56,7 +58,10 @@ public class RingColorView extends View implements IPaintView {
     private float circleRatio;
     private float circleRadius;
 
-    private int centerDefaultColor = 0xFFff0000;
+    /**
+     * 渐变数组
+     */
+    private String[] alphas;
     private OnColorChangedListener onColorChangedListener;
     private OnAngleChangeListener onAngleChangeListener;
     private OnMultiChangeListener onMultiChangeListener;
@@ -102,7 +107,8 @@ public class RingColorView extends View implements IPaintView {
         ringPaint.setStrokeWidth(ringWidth);
 
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circlePaint.setColor(centerDefaultColor);
+
+        alphas = new String[]{"F2", "F2", "E6", "E6", "CC", "B3", "99", "80", "73", "66", "59", "4D", "05", "03"};
     }
 
     @Override
@@ -112,6 +118,12 @@ public class RingColorView extends View implements IPaintView {
         canvas.translate(viewWidth / 2, viewHeight / 2);
 
         //画中心圆
+        int[] colors = new int[alphas.length];
+        for (int i = 0; i < alphas.length; i++) {
+            colors[i] = ColorUtils.convert(ringColor, alphas[i]);
+        }
+        RadialGradient gradient = new RadialGradient(0, 0, circleRadius,colors, (null), Shader.TileMode.CLAMP);
+        circlePaint.setShader(gradient);
         canvas.drawCircle(0, 0, circleRadius, circlePaint);
 
         //画圆环
@@ -142,8 +154,7 @@ public class RingColorView extends View implements IPaintView {
                 if (unit < 0) {
                     unit += 1;
                 }
-                int ringColor = getRingColor(ringColors, unit);
-                circlePaint.setColor(ringColor);
+                ringColor = getRingColor(ringColors, unit);
                 invalidate();
 
                 if (onColorChangedListener != null) {
@@ -193,8 +204,11 @@ public class RingColorView extends View implements IPaintView {
         return s + Math.round(p * (d - s));
     }
 
-    public void setCenterDefaultColor(int centerDefaultColor) {
-        this.centerDefaultColor = centerDefaultColor;
+    /**
+     * 颜色数值, 用于渐变
+     */
+    public void setAlphas(String[] alphas) {
+        this.alphas = alphas;
     }
 
     public void setOnColorChangedListener(OnColorChangedListener onColorChangedListener) {

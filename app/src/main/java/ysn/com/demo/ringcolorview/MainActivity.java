@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ysn.com.view.ringcolorview.ColorUtils;
 import ysn.com.view.ringcolorview.RingColorView;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,12 +26,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void colorChanged(int color) {
                 colorView.setBackgroundColor(color);
+                Log.d("test", "color: "+ ColorUtils.getHexCode(color));
+
             }
 
             @Override
             public void onAngle(float angle) {
                 angleImageView.setRotation((float) (angle*(180/Math.PI)));
-                Log.d("test", "angle: "+ angle*(180/Math.PI));
             }
         });
     }
