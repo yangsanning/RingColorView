@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RingColorView">
+        <attr name="rcv_ring_width" format="reference|dimension" />
+        <attr name="rcv_ring_ratio" format="float" />
+        <attr name="rcv_circle_ratio" format="float" />
+    </declare-styleable>
+</resources>

@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <View
+        android:id="@+id/main_activity_color"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/black" />
+
+    <FrameLayout
+        android:id="@+id/main_activity_color_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:background="@android:color/darker_gray">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/main_activity_angle"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@drawable/ic_ring" />
+
+        <ysn.com.view.ringcolorview.RingColorView
+            android:id="@+id/main_activity_ring_color_view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:rcv_ring_width="30dp" />
+    </FrameLayout>
+</LinearLayout>
